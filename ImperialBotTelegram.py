@@ -57,7 +57,7 @@ class ImperialTeleg():
         self.send_to_chat(message, text, attachment=attachment)
 
     def personal_opinion_chose(self):
-        token = choice(range(1))
+        token = choice(range(2))
         if token:
             return '%d/10' % choice(range(11))
         else:
@@ -126,7 +126,7 @@ def search(message):
 @bot.message_handler(content_types=['photo','video'])
 def personal_opinion(message):
     try:
-        TeleBot.send_to_chat(message, text=choice(TeleBot.personal_opinion_chose()), reply=True)
+        TeleBot.send_to_chat(message, text=TeleBot.personal_opinion_chose(), reply=True)
     except:
         TeleBot.send_to_chat(message, "Што то пошло не так. Лично я виню в этом тебя")
 
