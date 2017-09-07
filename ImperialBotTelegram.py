@@ -1,5 +1,7 @@
 import telebot
 from small_functions import *
+from itertools import permutations
+from random import choice
 from imagehandler import ImageHandlerTelebot
 import os
 
@@ -62,7 +64,12 @@ class ImperialTeleg():
             return '%d/10' % choice(range(11))
         else:
             return choice(self.personal_opinion)
-
+    
+    def _youda(self, message, text):
+        text = [word for word in text.split() if (word != "имперец," and word != "йода")]
+        frases = choice([phrase for phrase in permutations(text, len(text))])
+        self.send_to_chat(message, " ".join(word for word in frases))        
+        
     def comic(self, message):
         text = message.text.lower()
         token = None
@@ -96,6 +103,8 @@ class ImperialTeleg():
             self.send_to_chat(message, "Я прошу прощения за свои слова", reply=True)
         elif "комикс" in text:
             self.comic(message)
+        elif "" in text:
+            self._youda(message, text)
 
 
 
